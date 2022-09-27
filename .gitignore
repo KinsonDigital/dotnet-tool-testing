@@ -353,3 +353,5 @@ MigrationBackup/
 .idea
 
 local-secrets.json
+
+/.config

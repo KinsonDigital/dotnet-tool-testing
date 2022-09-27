@@ -1,0 +1,36 @@
+name: ⚙️Run DotNet Tool
+
+
+defaults:
+  run:
+    shell: pwsh
+
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  build_project:
+    name: Build Project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Restore DotNet Tools
+        run: dotnet tool restore
+      - name: Run Debug Task
+        run: |
+          $packageName = "MyTool";
+
+          # Create the dotnet tool manifest
+          dotnet new tool-manifest
+
+          # Installed the dotnet tool locally
+          $foundPackage = Get-ChildItem -Path "./package/**/*.nupkg" -Recurse | ForEach-Object{$_.FullName};
+
+          $packageFileName = [System.IO.Path]::GetFileNameWithoutExtension($foundPackage);
+          
+          # Get the version
+          $packageVersion = $packageFileName.Split("$packageName.")[1];
+
+          dotnet tool install $packageName --add-source "./package" --version $packageVersion
