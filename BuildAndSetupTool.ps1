@@ -46,3 +46,5 @@ $packageVersion = "";
 $packageVersion = $packageFileName.Split("$packageName.")[1];
 
 dotnet tool install $packageName --add-source $packageSourcePath --version $packageVersion
+
+dotnet tryme

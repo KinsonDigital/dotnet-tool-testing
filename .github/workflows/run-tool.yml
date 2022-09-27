@@ -34,3 +34,5 @@ jobs:
           $packageVersion = $packageFileName.Split("$packageName.")[1];
 
           dotnet tool install $packageName --add-source "./package" --version $packageVersion
+
+          dotnet tryme
